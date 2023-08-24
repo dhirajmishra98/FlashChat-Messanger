@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class RoundButtons extends StatelessWidget {
 
-  RoundButtons({this.color,this.text,this.onPressed});
+  RoundButtons({required this.color,required this.text,required this.onPressed});
   final Color color;
   final String text;
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {

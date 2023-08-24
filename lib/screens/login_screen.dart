@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/components/round_buttons.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login';
@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _savingSpinner = false;
   final _auth = FirebaseAuth.instance;
-  String email;
-  String password;
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   // }
                   try {
                     final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: email,
-                        password: password
+                        email: email!,
+                        password: password!
                     );
                     if (user != null){
                       Navigator.pushNamed(context, ChatScreen.id);

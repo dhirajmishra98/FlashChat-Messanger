@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flash_chat/components/round_buttons.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration';
@@ -14,8 +14,8 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _savingSpinner = false;
   final _auth = FirebaseAuth.instance;
-  String email;
-  String password;
+  String? email;
+  String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +89,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   // }
                   try {
                     final newUser = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: email,
-                      password: password,
+                      email: email!,
+                      password: password!,
                     );
                     if (newUser != null){
                       Navigator.pushNamed(context, ChatScreen.id);

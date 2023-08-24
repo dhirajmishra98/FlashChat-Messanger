@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firestore = FirebaseFirestore.instance;
-User loggedInUser;
+User? loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat';
@@ -14,7 +14,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
-  String messageText;
+  String? messageText;
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -76,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () {
                       messageTextController.clear();
                       _firestore.collection('messages').add({
-                        'sender': loggedInUser.email,
+                        'sender': loggedInUser!.email,
                         'text': messageText,
                         'time' : DateTime.now(),
                       });
@@ -109,13 +109,13 @@ class MessagesStream extends StatelessWidget {
             ),
           );
         }
-        final messages = snapshot.data.docs;
+        final messages = snapshot.data!.docs;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
           final messageSender = message.get('sender');
           final messageText = message.get('text');
           final messageTime = message.get('time');
-          final currentUser = loggedInUser.email;
+          final currentUser = loggedInUser!.email;
 
           final messageBubble = MessageBubble(
             sender: messageSender,
@@ -139,7 +139,7 @@ class MessagesStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({this.sender, this.text, this.isMe, this.time});
+  MessageBubble({required this.sender, required this.text, required this.isMe, required this.time});
   final String sender;
   final String text;
   final bool isMe;
